@@ -1,96 +1,136 @@
 @import "tailwindcss";
 
-/* นำเข้า Font Poppins */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tw-animate-css"; 
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
+  /* --- (Gaming Theme) --- */
   --font-family-sans: "Poppins", sans-serif;
 
---font-size-headline-1: 3.25rem;  /* 52px */
---font-size-headline-2: 2.5rem;   /* 40px */
---font-size-headline-3: 1.5rem;   /* 24px */
---font-size-headline-4: 1.25rem;  /* 20px */
-
---font-size-body-1: 1rem;         /* 16px */
---font-size-body-2: 0.875rem;     /* 14px */
---font-size-body-3: 0.75rem;      /* 12px (เพิ่มใหม่) */
-
-/* Font Weights */
---font-weight-headline: 600; /* SemiBold */
---font-weight-body: 500;     /* Medium */
-
-  /* =========================================
-     NEW PALETTE: Gaming Theme (Clutch Chronicles)
-     ========================================= */
+  --font-size-headline-1: 3.25rem;
+  --font-size-headline-2: 2.5rem;
+  --font-size-headline-3: 1.5rem;
+  --font-size-headline-4: 1.25rem;
   
-  /* Background & Dark Shades */
-  --color-base-600: #0B0C2A; /* Deep Navy (ใช้เป็นพื้นหลังหลัก) */
-  --color-base-500: #1F1147; /* Dark Purple (ใช้เป็นพื้นหลัง Card) */
-  --color-base-400: #3E1678; /* Deep Purple (Border หรือส่วนตัด) */
-  --color-base-300: #7B2CBF; /* Purple */
-  --color-base-200: #B560F4; /* Violet (Hover state) */
-  --color-base-100: #EADCF8; /* Lightest Lavender (Text รอง) */
+  --font-size-body-1: 1rem;
+  --font-size-body-2: 0.875rem;
+  --font-size-body-3: 0.75rem;
 
-  /* Brand Colors (สีจุดเด่น) */
-  --color-brand-primary: #FFD600; /* Cyber Yellow (แทนที่ Orange เดิม) */
-  
-  /* Status Colors (ปรับให้เป็น Neon) */
-  --color-state-success: #00E676; /* Neon Green */
-  --color-state-success-bg: #B9F6CA;
-  --color-state-error: #FF1744;   /* Neon Red */
+  --font-weight-headline: 600;
+  --font-weight-body: 500;
 
+  /* Gaming Palette (Navy/Purple/Yellow) */
+  --color-base-600: #0B0C2A; /* Deep Navy */
+  --color-base-500: #1F1147; /* Card BG */
+  --color-base-400: #3E1678; /* Border */
+  --color-base-300: #7B2CBF; 
+  --color-base-200: #B560F4; 
+  --color-base-100: #EADCF8; 
   --color-white: #ffffff;
+
+  --color-brand-primary: #FFD600; /* Yellow */
+  
+  --color-state-success: #00E676; 
+  --color-state-success-bg: #B9F6CA;
+  --color-state-error: #FF1744;
+
+  /* --- SHADCN CONFIG --- */
+  --radius: 0.5rem;
+
+  /* บอก Tailwind ว่าชื่อตัวแปรพวกนี้ มีอยู่จริงนะ (เพื่อใช้ class เช่น bg-background ได้) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
 }
 
-@layer utilities {
-  .text-headline-1 {
-    font-size: var(--font-size-headline-1);
-    font-weight: var(--font-weight-headline);
-  }
+/* --- C. ส่วนสำคัญที่สุด! (MAPPING) --- */
+/* เลบ oklch ทิ้ง แล้วใส่การจับคู่สีลงไปแทน */
+@layer base {
+  :root {
+    /* พื้นหลังเว็บ = สีน้ำเงินเข้ม */
+    --background: var(--color-base-600);
+    --foreground: var(--color-white);
 
-  .text-headline-2 {
-    font-size: var(--font-size-headline-2);
-    font-weight: var(--font-weight-headline);
-  }
+    /* การ์ด (Card) = สีม่วงเข้ม */
+    --card: var(--color-base-500);
+    --card-foreground: var(--color-white);
 
-  .text-headline-3 {
-    font-size: var(--font-size-headline-3);
-    font-weight: var(--font-weight-headline);
-  }
+    /* Popover */
+    --popover: var(--color-base-500);
+    --popover-foreground: var(--color-white);
 
-  .text-headline-4 {
-    font-size: var(--font-size-headline-4);
-    font-weight: var(--font-weight-headline);
-  }
+    /* ปุ่มหลัก (Primary) = สีเหลือง */
+    --primary: var(--color-brand-primary);
+    --primary-foreground: var(--color-base-600); /* ตัวหนังสือบนปุ่มเหลือง เป็นสีเข้ม */
 
-  .text-body-1 {
-    font-size: var(--font-size-body-1);
-    font-weight: var(--font-weight-body);
-  }
+    /* ปุ่มรอง (Secondary) = สีม่วงกลาง */
+    --secondary: var(--color-base-400);
+    --secondary-foreground: var(--color-white);
 
-  .text-body-2 {
-    font-size: var(--font-size-body-2);
-    font-weight: var(--font-weight-body);
+    /* สีจางๆ (Muted) */
+    --muted: var(--color-base-500);
+    --muted-foreground: var(--color-base-300);
+
+    /* Accent (เวลาเอาเมาส์ชี้เมนู) */
+    --accent: var(--color-base-400);
+    --accent-foreground: var(--color-white);
+
+    /* Destructive (สีแดง Error) */
+    --destructive: var(--color-state-error);
+    --destructive-foreground: var(--color-white);
+
+    /* Border & Input */
+    --border: var(--color-base-400);
+    --input: var(--color-base-400);
+    --ring: var(--color-brand-primary);
+
+    /* Charts */
+    --chart-1: var(--color-brand-primary);
   }
   
-  .text-body-3 {
-    font-size: var(--font-size-body-3);
-    font-weight: var(--font-weight-body);
-  }
-}
-
-@layer base {
+  /* Reset Style พื้นฐาน */
   * {
+    @apply border-border outline-ring/50;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
 
   body {
-    font-family: var(--font-family-sans); /* เรียกใช้ฟอนต์จาก @theme */
-    background-color: var(--color-base-600); /* เรียกใช้สีพื้นหลัง Deep Navy */
-    color: var(--color-white); /* สีตัวอักษรหลักเป็นสีขาว */
+    @apply bg-background text-foreground;
+    font-family: var(--font-family-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+}
+
+/* Utilities (คงเดิม) */
+@layer utilities {
+  .text-headline-1 { font-size: var(--font-size-headline-1); font-weight: var(--font-weight-headline); line-height: 1.2; }
+  .text-headline-2 { font-size: var(--font-size-headline-2); font-weight: var(--font-weight-headline); line-height: 1.2; }
+  .text-headline-3 { font-size: var(--font-size-headline-3); font-weight: var(--font-weight-headline); }
+  .text-headline-4 { font-size: var(--font-size-headline-4); font-weight: var(--font-weight-headline); }
+  .text-body-1 { font-size: var(--font-size-body-1); font-weight: var(--font-weight-body); }
+  .text-body-2 { font-size: var(--font-size-body-2); font-weight: var(--font-weight-body); }
+  .text-body-3 { font-size: var(--font-size-body-3); font-weight: var(--font-weight-body); }
 }
