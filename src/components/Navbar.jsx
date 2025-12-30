@@ -17,8 +17,8 @@ function Navbar() {
                 </div>
                 
                 <div className='hidden md:flex gap-2.5'> {/* login&signup */}
-                    <button className='w-32 h-12 bg-base-100 rounded-[999px] border-2 border-base-200 text-base-500 font-bold cursor-crosshair'>Log in</button>
-                    <button className='w-32 h-12 bg-black rounded-[999px] border-2 border-base-300 text-base-100 font-bold cursor-crosshair'>Sign up</button>
+                    <button className='w-32 h-12 bg-base-100 rounded-[999px] border-2 border-base-200 text-base-500 font-bold cursor-crosshair hover:scale-103'>Log in</button>
+                    <button className='w-32 h-12 bg-black rounded-[999px] border-2 border-base-300 text-base-100 font-bold cursor-crosshair hover:scale-103'>Sign up</button>
                 </div>
             </nav>
         </div>
