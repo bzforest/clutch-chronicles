@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Check, Search } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,6 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import BlogCard from "./BlogCard";
+import { blogPosts } from "../data/blogPosts";
 
 function ArticleSection() {
   // 1. สร้าง State เพื่อจำว่า User เลือกหมวดหมู่ไหนอยู่ (ค่าเริ่มต้น 'Highlight')
@@ -16,19 +18,21 @@ function ArticleSection() {
 
   // 2. รายชื่อหมวดหมู่ (จะได้ไม่ต้องเขียนซ้ำหลายรอบ)
   const categories = ["Latest News", "E-Sports", "Reviews", "Hardware"];
+  
+  const filteredPosts = blogPosts.filter((post) => {
+    if (category === "Latest News") {
+      return true;       //   ถ้าเลือก Lastest News เอาทุกอันมาแสดง
+    }
+      return post.category === category;    //  ถ้าเลือกหมวดิื่น ให้แสดงหมวดที่ตรงกัน
+  })
 
   return (
     <div className="w-full max-w-[1440px] mx-auto px-4 md:px-[120px] py-10 space-y-8">
 
       <h1 className="text-headline-3 font-bold text-white">Latest articles</h1>
-
-      {/* --- Filter Bar Container (กรอบสีเทาจางๆ) --- */}
       <div className="bg-base-500/50 p-6 rounded-xl flex flex-col lg:flex-row items-center justify-between gap-6 border border-base-400">
-
-        {/* =========================================
-            📱 PART 1: MOBILE VIEW (Search บน + Select ล่าง)
-            (จะซ่อนเมื่อจอเป็น lg ขึ้นไป -> lg:hidden)
-           ========================================= */}
+        
+        {/* MOBILE VIEW (จะซ่อนเมื่อจอเป็น lg ขึ้นไป -> lg:hidden)*/}
         <div className="w-full flex flex-col gap-4 lg:hidden">
           
           {/* 1.1 Mobile Search */}
@@ -52,8 +56,8 @@ function ArticleSection() {
                 <SelectValue placeholder="Select Category" />
               </SelectTrigger>
               <SelectContent>
-                {categories.map((list) => (
-                  <SelectItem key={list} value={list}>
+                {categories.map((list) => (                                       //   data-[state] คือคำสั่งของ state                checked หมายถึง ถ้าถูกเลือก
+                  <SelectItem key={list} value={list} className="cursor-crosshair data-[state=checked]:bg-base-600 data-[state=checked]:text-brand-primary">
                     {list}
                   </SelectItem>
                 ))}
@@ -62,13 +66,7 @@ function ArticleSection() {
           </div>
         </div>
 
-
-        {/* =========================================
-            💻 PART 2: DESKTOP VIEW (Tabs ซ้าย + Search ขวา)
-            (จะซ่อนในมือถือ -> hidden lg:flex)
-           ========================================= */}
-        
-        {/* 2.1 Desktop Tabs (ซ้าย) */}
+        {/*DESKTOP VIEW (จะซ่อนในมือถือ -> hidden lg:flex) */}
         <div className="hidden lg:flex items-center gap-2 p-1.5 rounded-lg">
           {categories.map((list) => (
             <button
@@ -86,8 +84,6 @@ function ArticleSection() {
             </button>
           ))}
         </div>
-
-        {/* 2.2 Desktop Search (ขวา) */}
         <div className="hidden lg:block w-[300px] relative">
            <Input 
               type="text" 
@@ -96,15 +92,17 @@ function ArticleSection() {
             />
             <Search className="absolute right-3 top-2.5 h-5 w-5 text-gray-500" />
         </div>
-
       </div>
 
-      {/* --- พื้นที่สำหรับใส่ Card บทความในอนาคต --- */}
-      {/* <div className="text-white text-center py-10 border border-dashed border-base-400 rounded-lg">
-         Displaying Content for Category: <span className="text-brand-primary font-bold">{category}</span>
-      </div> */}
-
+                 {/* Blog Card */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {filteredPosts.map((post) => (
+            <BlogCard key={post.id} {...post} />
+          ))}
+      </div>
+      
     </div>
+    
   );
 }
 
