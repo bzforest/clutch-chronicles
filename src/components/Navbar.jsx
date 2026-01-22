@@ -19,8 +19,8 @@ function Navbar() {
                     {/* Hamburger คุง */}
                 <div className="flex md:hidden">
                 <DropdownMenu>
-                      {/* ส่วนปุ่มกด (Trigger) */}
-                      <DropdownMenuTrigger asChild>  {/* พอใส่ asChild มันจะรู้ว่าให้ใช้ button ข้างในเป็นตัวกด */}
+                      {/* ส่วนปุ่มกด (Trigger) */}      {/* พอใส่ asChild มันจะรู้ว่าให้ใช้ button ข้างในเป็นตัวกด */}
+                      <DropdownMenuTrigger asChild>
                           <button className="text-white hover:bg-base-400 p-2 rounded-md transition outline-none">
                              <Menu className="h-6 w-6" /> 
                           </button>
