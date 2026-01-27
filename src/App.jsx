@@ -1,23 +1,26 @@
 import "./App.css";
-import DesignSystem from "./components/DesignSystem";
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import { Footer } from "./components/Footer";
-import ArticleSection from "./components/ArticleSection";
+import { Route , Routes , BrowserRouter } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ViewPostPage from "./pages/ViewPostPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   return (
-    <>
-      <div className="min-h-screen flex flex-col">
-        {/* <DesignSystem /> */}
-        <Navbar />
-      <main className="flex-1 bg-base-600"> 
-        <HeroSection />
-        <ArticleSection />
-      </main>
-        <Footer />
-      </div>
-    </>
+    <div className="App">
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />}/>
+        <Route path="/viewpostpage/:id" element={<ViewPostPage />}/>
+        <Route path="/loginpage" element={<LoginPage />}/>
+        <Route path="/signuppage" element={<SignUpPage />}/>
+        <Route path="*" element={<NotFoundPage />}/>
+      </Routes>
+    </BrowserRouter>
+    <Toaster />
+  </div>
   );
 }
 

@@ -1,7 +1,7 @@
-import { Footer } from "@/components/Footer"
 import Navbar from "@/components/Navbar"
+import { Footer } from "@/components/Footer"
 
-function LoginPage () {
+function SignUpPage() {
     return (
         <div>
             <Navbar />
@@ -10,4 +10,4 @@ function LoginPage () {
     )
 };
 
-export default LoginPage
+export default SignUpPage

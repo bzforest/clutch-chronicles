@@ -7,14 +7,16 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu";
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
+    const navigate = useNavigate();
 
     return (
         <div className="w-full bg-base-500 border-b border-base-400 sticky top-0 z-50">
             <nav className="w-full h-[48px] md:h-[80px] bg-base-500 border-b border-base-400 flex items-center justify-between px-4 md:px-[120px]">
 
-                <img className="h-8 w-auto md:h-12 object-contain scale-230 pl-2 md:pl-0 md:scale-350" src={logoImage} alt="Logo" /> {/* LOGO คุง */}
+                <img className="h-8 w-auto md:h-12 object-contain scale-230 pl-2 md:pl-0 md:scale-350" src={logoImage} alt="Logo" onClick={() => navigate(`/`)}/> {/* LOGO คุง */}
                    
                     {/* Hamburger คุง */}
                 <div className="flex md:hidden">

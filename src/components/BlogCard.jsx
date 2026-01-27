@@ -1,5 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 function BlogCard(props) {
-    const {image , category , title , description , author , date} = props;
+    const {image , category , title , description , author , date , id} = props;
+    const navigate = useNavigate();
+    
+    const handleViewPost = () => {
+      navigate(`/viewpostpage/${id}`)
+    }
 
     const formatDate = (isoString) => {
       const dateObj = new Date(isoString);
@@ -13,18 +20,18 @@ function BlogCard(props) {
 
     return (
       <div className="flex flex-col gap-4">
-        <a href="#" className="relative h-[212px] sm:h-[360px]">
+        <div className="relative h-[212px] sm:h-[360px] " onClick={handleViewPost}>
           <img className="w-full h-full object-cover rounded-md" src={image} alt="Understanding Cat Behavior: Why Your Feline Friend Acts the Way They Do"/>
-        </a>
+        </div>
         <div className="flex flex-col">
           <div className="flex">
             <span className="bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-600 mb-2">{category}</span>
           </div>
-          <a href="#">
+          <div onClick={handleViewPost} className="cursor-pointer">
             <h2 className="text-start font-bold text-xl mb-2 line-clamp-2 hover:underline">
               {title}
             </h2>
-          </a>
+          </div>
           <p className="text-muted-foreground text-sm mb-4 flex-grow line-clamp-3">
             {description}
           </p>

@@ -2,8 +2,11 @@ import React from 'react';
 import { LinkedinIcon } from '@/assets/icons/Icon';
 import { GithubIcon } from '@/assets/icons/Icon';
 import { RectangleGogglesIcon } from '@/assets/icons/Icon';
+import { useNavigate } from 'react-router-dom';
 
 export function Footer () {
+
+const navigate = useNavigate();    
     return (
     <>
         <div className='w-full bg-base-500 border-t border-base-400'>
@@ -14,7 +17,7 @@ export function Footer () {
                     <GithubIcon />
                     <RectangleGogglesIcon />
                 </div>
-                <button className='text-body-1 underline cursor-pointer hover:scale-103'>Home page</button>    
+                <button className='text-body-1 underline cursor-pointer hover:scale-103' onClick={() => navigate(`/`)}>Home page</button>    
             </footer>
         </div>    
     </>
