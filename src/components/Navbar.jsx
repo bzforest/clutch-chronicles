@@ -34,14 +34,16 @@ function Navbar() {
                           
                           {/* Item 1: Log in Button */}
                           <DropdownMenuItem className="p-0 focus:bg-transparent">
-                              <button className="w-full h-12 bg-base-100 rounded-[999px] border-2 border-base-200 text-base-500 font-bold cursor-crosshair hover:scale-[1.02] transition">
+                              <button className="w-full h-12 bg-base-100 rounded-[999px] border-2 border-base-200 text-base-500 font-bold cursor-crosshair hover:scale-[1.02] transition"
+                              onClick={() => navigate(`/loginpage`)}>
                                 Log in
                               </button>
                           </DropdownMenuItem>
 
                           {/* Item 2: Sign up Button */}
                           <DropdownMenuItem className="p-0 focus:bg-transparent">
-                              <button className="w-full h-12 bg-black rounded-[999px] border-2 border-base-300 text-base-100 font-bold cursor-crosshair hover:scale-[1.02] transition">
+                              <button className="w-full h-12 bg-black rounded-[999px] border-2 border-base-300 text-base-100 font-bold cursor-crosshair hover:scale-[1.02] transition"
+                              onClick={() => navigate(`/signuppage`)}>
                                 Sign up
                               </button>
                           </DropdownMenuItem>
@@ -52,8 +54,10 @@ function Navbar() {
 
                     {/* login&signup */}
                 <div className='hidden md:flex gap-2.5'>
-                    <button className='w-32 h-12 bg-base-100 rounded-[999px] border-2 border-base-200 text-base-500 font-bold cursor-crosshair hover:scale-103'>Log in</button>
-                    <button className='w-32 h-12 bg-black rounded-[999px] border-2 border-base-300 text-base-100 font-bold cursor-crosshair hover:scale-103'>Sign up</button>
+                    <button className='w-32 h-12 bg-base-100 rounded-[999px] border-2 border-base-200 text-base-500 font-bold cursor-crosshair hover:scale-103'
+                    onClick={() => navigate(`/loginpage`)}>Log in</button>
+                    <button className='w-32 h-12 bg-black rounded-[999px] border-2 border-base-300 text-base-100 font-bold cursor-crosshair hover:scale-103'
+                    onClick={() => navigate(`/signuppage`)}>Sign up</button>
                 </div>
             </nav>
         </div>
