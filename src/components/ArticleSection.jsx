@@ -37,13 +37,13 @@ function ArticleSection() {
     try {
       const categoryParam = category === "Highlight" ? "" : category;
       const response = await axios.get(
-        "https://blog-post-project-api.vercel.app/posts",
+        `${import.meta.env.VITE_API_BASE_URL}/posts`,
         {
           params: {
             page: page,
             limit: 6,
             category: categoryParam,
-            // ❌ ไม่ส่ง title/keyword ไปตรงนี้ เพราะ Grid จะแสดงตามหมวดหมู่เท่านั้น
+            // ไม่ส่ง title/keyword ไปตรงนี้ เพราะ Grid จะแสดงตามหมวดหมู่เท่านั้น
           },
         }
       );
@@ -92,9 +92,9 @@ function ArticleSection() {
     const delayDebounceFn = setTimeout(async () => {
       try {
         // ยิง API ค้นหา (Limit น้อยๆ เช่น 5-10 ตัวก็พอสำหรับ Dropdown)
-        const response = await axios.get("https://blog-post-project-api.vercel.app/posts", {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/posts`, {
             params: {
-                title: searchText, // หรือใช้ keyword/q ตามที่ API รองรับ
+                keyword: searchText, // หรือใช้ keyword/q ตามที่ API รองรับ
                 limit: 5 
             }
         });
@@ -207,10 +207,27 @@ function ArticleSection() {
 
       {/* --- Blog Cards Grid --- */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-0">
-        {posts.map((post, index) => (
-           <BlogCard key={`${post.id}-${index}`} {...post} />
-        ))}
-      </div>
+  {posts.map((post, index) => (
+    <BlogCard 
+      key={`${post.id}-${index}`} 
+      
+      // 1. ข้อมูลพื้นฐาน (ดึงจาก post ตรงๆ)
+      id={post.id}
+      title={post.title}
+      description={post.description}
+      image={post.image}
+      date={new Date(post.date).toLocaleDateString()} // แปลงวันที่ให้สวยงาม
+      
+      // 2. Map Category (หัวใจสำคัญ 💖)
+      // เช็คว่า Database ส่งมาชื่ออะไร ถ้ามี category_name ให้ใช้ ถ้าไม่มีให้เป็น General
+      category={post.category_name || "General"} 
+      
+      // 3. ใส่ข้อมูลหลอกๆ ไปก่อน (เพราะ Database ยังไม่มี)
+      author="Best Test"
+      avatar="https://ui.shadcn.com/avatars/01.png"
+    />
+  ))}
+</div>
 
       {/* --- Loading & View More --- */}
       {hasMore && posts.length > 0 && (

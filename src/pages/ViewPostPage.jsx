@@ -31,8 +31,9 @@ function ViewPostPage() {
     const getViewPost = async () => {
         try {
             setStatus("Loading...");
-            const respons = await axios.get(`https://blog-post-project-api.vercel.app/posts/${params.id}`)
-            setPost(respons.data)
+            const respons = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/posts/${params.id}`)
+            // const respons = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/posts/${params.id}`);
+            setPost(respons.data.data)
             console.log(respons.data)
             setStatus("")
         } catch (error) {
@@ -140,7 +141,7 @@ function ViewPostPage() {
                         {/* Meta */}
                         <div className="flex items-center gap-4 mb-4 px-4 xl:px-0">
                             <span className="bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-bold">
-                                {post.category}
+                                {post.category_name}
                             </span>
                             <span className="text-gray-400 text-sm">
                                 {formatDate(post.date)}
@@ -174,7 +175,7 @@ function ViewPostPage() {
                                     <img className='flex items-center rounded-[999px] w-[44px] h-[44px] justify-center' src={HeadImage} alt="Header Image"></img>
                                     <div className="flex flex-col pl-5">
                                         <p className='text-brand-primary text-body-3'>-Author</p>
-                                        <p className="text-white font-semibold">{post.author}</p>
+                                        <p className="text-white font-semibold">{post.user_id}</p>
                                     </div>
                                 </div>
                                 <div className="pt-8">
